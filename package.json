@@ -10,20 +10,22 @@
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "debug": "^4.3.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "hbs": "^4.1.1",
+    "hbs": "^4.1.2",
     "http-errors": "^1.8.0",
+    "lite-server": "^2.6.1",
     "moment": "^2.29.1",
     "mongoose": ">=5.11.7",
     "morgan": "^1.10.0",
     "multer-storage-cloudinary": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www",
-    "server": "nodemon ./bin/www -e js,hbs"
+    "server": "nodemon ./bin/www -e .js,.hbs",
+    "dev": "DEBUG=app:* nodemon ./bin/www"
   },
   "keywords": [],
   "author": "",

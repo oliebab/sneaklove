@@ -1,33 +1,33 @@
 const express = require("express");
+const SneakerModel = require("../models/Sneaker");
+const TagModel = require("../models/Tag");
+const UserModel = require("../models/User");
 const router = express.Router();
 
-return console.log(`\n\n
------------------------------
------------------------------
-     wax on / wax off !
------------------------------
------------------------------\n\n`
-);
+router.get("/", (req, res, next) => res.render("index"));
 
-router.get("/", (req, res) => {
-  res.send("foo");
+//GET - all sneakers
+router.get("/sneakers/:cat", async (req, res, next) => {
+  const query = req.params.cat !== "collection" ? { category: req.params.cat } : {};
+  try {
+    res.render("products", {
+      sneakers: await SneakerModel.find(query),
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+//GET - one sneaker
+router.get("/one-prod/:id", function (req, res, next) {
+  console.log(req.params.id);
+  SneakerModel.findById(req.params.id)
+    .then((dbResult) => {
+      res.render("one_product", {
+        sneaker: dbResult,
+      });
+    })
+    .catch((dbErr) => next(dbErr));
 });
-
-router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
-});
-
-router.get("/signup", (req, res) => {
-  res.send("sneak");
-});
-
-router.get("/signin", (req, res) => {
-  res.send("love");
-});
-
 
 module.exports = router;
